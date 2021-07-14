@@ -32,11 +32,15 @@ function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read;
+    if(read === true){
+        this.read = 'Read';
+    } else {
+        this.read = 'Not read';
+    }
 }
 
-const theHobbit = new Book('The Hobbit', 'Your Mom', '500', 'read');
-const dune = new Book('Dune', 'Frank helbert', '600', 'not read');
+const theHobbit = new Book('The Hobbit', 'Your Mom', '500', true);
+const dune = new Book('Dune', 'Frank helbert', '600', false);
 
 myLibrary.push(dune, theHobbit);
 
@@ -47,17 +51,29 @@ form.addEventListener('submit', addBookToLibrary);
 
 function addBookToLibrary(e){
     e.preventDefault();
-    console.log('idk');
+    let formbookname = document.getElementById("bookname").value;
+    let formauthorname = document.getElementById("authorname").value;
+    let formpages = document.getElementById("pages").value;
+    let formread = document.getElementById("read").checked;
+    console.log(formread);
+    console.log('ass');
+    myLibrary.push(new Book(formbookname, formauthorname, formpages, formread));
+    myModal.style.display = 'none';
+    loopBooks();
 }
 
 function loopBooks(){
     let i;
+    clearLibrary();
     for(i = 0; i < myLibrary.length; i++){
         let node = document.createElement('div');
-        console.log(i);
+        console.log(`This works ${i}`);
         node.setAttribute('class', 'book-grid-book');
         node.innerHTML = `Name: ${myLibrary[i].title} <br>Author: ${myLibrary[i].author} <br> Pages: ${myLibrary[i].pages} <br> Status: ${myLibrary[i].read}`;
         bookGrid.appendChild(node);
     }
 }
 
+function clearLibrary(){
+    bookGrid.innerHTML = ' ';
+}
