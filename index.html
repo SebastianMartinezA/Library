@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Library! An Odin Project project</title>
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <header>
+            <h1 class="library">Library</h1>
+        </header>
+        <main>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>New book</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form id='new-Book-Form' method="POST">
+                            <label for="bookname">Book name: </label><br>
+                            <input type="text" id="bookname" name="bookname" placeholder="Enter a book name"><br>
+                            <label for="authorname">Author: </label><br>
+                            <input type="text" id="authorname" name="authorname" placeholder="Enter the authors name"><br>
+                            <label for="pages">Pages: </label><br>
+                            <input type="text" id="pages" name="pages" placeholder="How many pages?"><br>
+                            <input type="checkbox" id="read" name="read" value="read">
+                            <label for="read">I have read it</label><br>
+                            <br>
+                            <input type="submit" value="Submit" id="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="add-book" id="add-book-button">New book</button>
+            </div>
+            <div class="book-grid" id="books"></div>
+        </main>
+    </body>
+    <footer>
+        <div>Sebastian Martinez Amaray</div>
+        <script src="script.js"></script>
+    </footer>
+</html>
