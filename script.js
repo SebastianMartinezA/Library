@@ -67,11 +67,48 @@ function loopBooks(){
     clearLibrary();
     for(i = 0; i < myLibrary.length; i++){
         let node = document.createElement('div');
-        console.log(`This works ${i}`);
         node.setAttribute('class', 'book-grid-book');
-        node.innerHTML = `Name: ${myLibrary[i].title} <br>Author: ${myLibrary[i].author} <br> Pages: ${myLibrary[i].pages} <br> Status: ${myLibrary[i].read}`;
+        node.setAttribute('data-book-array', `${i}`);
+        node.innerHTML = `<div id="name${i}">Name: ${myLibrary[i].title}</div>
+                        <div id="author${i}">Author: ${myLibrary[i].author}</div>
+                        <div id="pages${i}">Pages: ${myLibrary[i].pages}</div>
+                        <div id="read${i}">Status: ${myLibrary[i].read}</div>
+                        <div id="status-button${i}">
+                            <button class="change-status">Change status</button>
+                        </div>
+                        <div id="erase-button${i}">
+                            <button class="erase-book">Erase book</button>
+                        </div>`;
         bookGrid.appendChild(node);
     }
+    let allButtonsStatus = document.getElementsByClassName('change-status');
+    for(let i = 0; i< allButtonsStatus.length; i++){
+        allButtonsStatus[i].addEventListener('click', changeStatus);
+    }
+    let eraseButtons = document.getElementsByClassName('erase-book');
+    for(let i = 0; i< eraseButtons.length; i++){
+        eraseButtons[i].addEventListener('click', eraseBook);
+    }
+}
+
+function eraseBook(e){
+    let position = e.target.parentNode.parentNode.dataset.bookArray;
+    myLibrary.splice(position,1);
+    loopBooks();
+}
+
+function changeStatus(e){
+    let bookPosition = e.target.parentNode.parentNode.dataset.bookArray;
+    let readPosition = document.getElementById(`read${bookPosition}`);
+    if(myLibrary[bookPosition].read === 'Read'){
+        myLibrary[bookPosition].read = 'Not read';
+        readPosition.innerText = "Status: Not read";
+        console.log("inside if");
+    } else {
+        myLibrary[bookPosition].read = 'Read';
+        readPosition.innerText = "Status: Read";    
+    }
+    
 }
 
 function clearLibrary(){
