@@ -1,4 +1,9 @@
-let myLibrary = [];
+let myLibrary = localStorage.getItem("myLibraryArray");
+if(myLibrary){
+    myLibrary = JSON.parse(myLibrary);
+} else {
+    myLibrary = [];
+}
 
 const bookGrid = document.getElementById('books'); // grid that contains divs of books
 const myModal = document.getElementById('myModal'); // main modal div
@@ -39,11 +44,6 @@ function Book(title, author, pages, read){
     }
 }
 
-const theHobbit = new Book('The Hobbit', 'Your Mom', '500', true);
-const dune = new Book('Dune', 'Frank helbert', '600', false);
-
-myLibrary.push(dune, theHobbit);
-
 loopBooks();
 
 const form = document.getElementById('new-Book-Form');
@@ -55,8 +55,6 @@ function addBookToLibrary(e){
     let formauthorname = document.getElementById("authorname").value;
     let formpages = document.getElementById("pages").value;
     let formread = document.getElementById("read").checked;
-    console.log(formread);
-    console.log('ass');
     myLibrary.push(new Book(formbookname, formauthorname, formpages, formread));
     myModal.style.display = 'none';
     loopBooks();
@@ -89,6 +87,7 @@ function loopBooks(){
     for(let i = 0; i< eraseButtons.length; i++){
         eraseButtons[i].addEventListener('click', eraseBook);
     }
+    localStorage.setItem("myLibraryArray", JSON.stringify(myLibrary));
 }
 
 function eraseBook(e){
@@ -103,12 +102,11 @@ function changeStatus(e){
     if(myLibrary[bookPosition].read === 'Read'){
         myLibrary[bookPosition].read = 'Not read';
         readPosition.innerText = "Status: Not read";
-        console.log("inside if");
     } else {
         myLibrary[bookPosition].read = 'Read';
         readPosition.innerText = "Status: Read";    
     }
-    
+    localStorage.setItem("myLibraryArray", JSON.stringify(myLibrary));
 }
 
 function clearLibrary(){
